@@ -110,7 +110,7 @@ def hemispheres(browser):
         
         browser.find_by_css('a.product-item img')[i].click()
         hemi_data = scrape_hemisphere(browser.html)
-        hemi_data['img_url']=str(url) + hemi_data['img_url']
+        hemi_data['img_url']='https://astrogeology.usgs.gov' + (hemi_data['img_url'])
         hemisphere_image_urls.append(hemi_data)
         browser.back()
     return hemisphere_image_urls
@@ -121,7 +121,7 @@ def scrape_hemisphere(html_text) :
     hemi_soup = soup(html_text,"html.parser")
     try : 
         title_elem = hemi_soup.find("h3").get_text()
-        img_elem = hemi_soup.find("a").get("href")
+        img_elem = hemi_soup.find('img', class_='thumb').get('src')
     except AttributeError : 
         title_elem = None
         img_elem   =None
